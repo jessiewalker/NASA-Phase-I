@@ -1,0 +1,82 @@
+name: EFB-Agent
+options:
+  bundleIdPrefix: com.efbagent
+  deploymentTarget:
+    iOS: "16.0"
+  xcodeVersion: "15.0"
+packages:
+  GRDB:
+    url: https://github.com/groue/GRDB.swift
+    from: 6.0.0
+targets:
+  EFBAgent:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: EFBAgent
+        excludes:
+          - "**/*.md"
+        compilerFlags:
+          - -enable-experimental-concurrency
+    resources:
+      - path: EFBAgent/Resources
+    info:
+      path: EFBAgent/Info.plist
+      properties:
+        CFBundleDisplayName: EFB Agent
+        CFBundleShortVersionString: "1.0"
+        CFBundleVersion: "1"
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities:
+          - armv7
+    dependencies:
+      - package: GRDB
+        product: GRDB
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.efbagent.EFBAgent
+        TARGETED_DEVICE_FAMILY: "2" # iPad
+        SWIFT_VERSION: "5.9"
+        DEVELOPMENT_TEAM: ""
+        CODE_SIGN_IDENTITY: "Apple Development"
+        CODE_SIGN_STYLE: Automatic
+        SWIFT_OPTIMIZATION_LEVEL: "-Onone"
+        SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        ENABLE_TESTABILITY: YES
+        OTHER_SWIFT_FLAGS: -enable-testing
+        IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+      configs:
+        Debug:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+        Release:
+          SWIFT_ACTIVE_COMPILATION_CONDITIONS: ""
+          SWIFT_OPTIMIZATION_LEVEL: "-O"
+  EFBAgentTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: EFBAgentTests
+        compilerFlags:
+          - -enable-experimental-concurrency
+    dependencies:
+      - target: EFBAgent
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.efbagent.EFBAgentTests
+        TARGETED_DEVICE_FAMILY: "2"
+        SWIFT_VERSION: "5.9"
+        IPHONEOS_DEPLOYMENT_TARGET: "16.0"
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/EFBAgent.app/EFBAgent
