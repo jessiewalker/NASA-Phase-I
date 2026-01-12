@@ -1,0 +1,22 @@
+{
+  "samplingRate": 30.0,
+  "uploadInterval": 300.0,
+  "allowedHosts": ["example.com"],
+  "quietMode": false,
+  "debugMode": false,
+  "testMode": false,
+  "enableRemoteConfig": false,
+  "remoteConfigURL": null,
+  "maxPendingEvents": 10000,
+  "retentionDays": 7,
+  "ruleThresholds": {
+    "cpuThreshold": 0.8,
+    "memoryThreshold": 1000000000,
+    "connectivityFlapThreshold": 5,
+    "tlsFailureThreshold": 3,
+    "tlsFailureWindow": 60.0
+  },
+  "uploadEndpoint": null,
+  "uploadSigningSecret": null
+}
+
